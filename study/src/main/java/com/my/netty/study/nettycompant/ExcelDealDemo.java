@@ -16,13 +16,13 @@ import java.util.List;
  * @author shanghang
  * @title: BindDemo
  * @projectName nettyStudy
- * @description: 监听demo
+ * @description: excel处理类
  * @date 2020.12.14-15:42
  */
-public class BindDemo {
+public class ExcelDealDemo {
     public static void main(String[] args) throws IOException {
         List temp =  new ArrayList();
-        String xlsPath = "C:\\Users\\shanghang\\Desktop\\报文.xlsx";
+        String xlsPath = "C:\\Users\\shanghang\\Desktop\\3号之后.xlsx";
         FileInputStream fileIn =  new  FileInputStream(xlsPath);
         //根据指定的文件输入流导入Excel从而产生Workbook对象
         Workbook wb0 =  new XSSFWorkbook(fileIn);
@@ -33,10 +33,11 @@ public class BindDemo {
         int count = -1;
         for  (Row r : sht0) {
             count++;
-            if(r.getRowNum()< 1 ){
-                //首页跳过
-                continue ;
-            }
+            System.out.println(count);
+//            if(r.getRowNum()< 1 ){
+//                //首页跳过
+//                continue ;
+//            }
             String request = "";
             for (int i = 0 ;i <r.getLastCellNum();i++){
                 String s = r.getCell(i).getStringCellValue();
