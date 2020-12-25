@@ -3,10 +3,10 @@ package com.my.netty.study.server;
 /**
  * @Author: shanghang
  * @Project:nettyStudy
- * @description:AioNettyServer配置
- * @Date: 2020.12.24 23:43
+ * @description:TODO
+ * @Date: 2020.12.25 17:05
  **/
-public class AioNettyServer {
+public class AioClient {
     public static void main(String[] args) {
         int port = 8080;
         if(args!=null && args.length>0){
@@ -16,7 +16,6 @@ public class AioNettyServer {
 
             }
         }
-        AsyncTimeServerHandler timeSever = new AsyncTimeServerHandler(port);
-        new Thread(timeSever,"AIO-AsyncTimeServerHandler-001").start();
+        new Thread(new AsyncTimeClientHandler("127.0.0.1",port),"AIO-AsyncTimeClientHandler-001").start();
     }
 }
