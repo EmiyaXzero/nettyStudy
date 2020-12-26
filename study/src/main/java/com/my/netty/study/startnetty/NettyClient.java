@@ -12,7 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 /**
  * @Author: shanghang
  * @Project:nettyStudy
- * @description:TODO
+ * @description:netty客户端
  * @Date: 2020.12.26 15:53
  **/
 public class NettyClient {
@@ -37,7 +37,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast(new TimeClientHandle());
+                        socketChannel.pipeline().addLast(new TimeClientHandleForHalf());
                     }
                 });
 

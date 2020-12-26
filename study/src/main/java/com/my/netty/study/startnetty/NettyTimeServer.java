@@ -12,7 +12,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /**
  * @Author: shanghang
  * @Project:nettyStudy
- * @description:TODO
+ * @description:netty服务端
  * @Date: 2020.12.26 15:25
  **/
 public class NettyTimeServer {
@@ -52,7 +52,7 @@ public class NettyTimeServer {
 
         @Override
         protected void initChannel(SocketChannel ch) throws Exception {
-            ch.pipeline().addLast(new TimeServerHandler());
+            ch.pipeline().addLast(new TimeServerHandlerForHalf());
         }
     }
 }
