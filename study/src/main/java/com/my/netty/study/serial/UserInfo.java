@@ -1,0 +1,55 @@
+package com.my.netty.study.serial;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.nio.ByteBuffer;
+
+/**
+ * @author shanghang
+ * @title: User
+ * @projectName nettyStudy
+ * @description: 序列化demo
+ * @date 2020.12.27-15:46
+ */
+@Data
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String userName;
+
+    private int userId;
+
+    public UserInfo buildUserName(String userName){
+        this.userName = userName;
+        return this;
+    }
+
+    public UserInfo buildUserId(int userId){
+        this.userId = userId;
+        return this;
+    }
+
+    public byte[] codeC(){
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        return getBytes(buffer);
+    }
+
+    public byte[] codeC(ByteBuffer buffer){
+        buffer.clear();
+        return getBytes(buffer);
+    }
+
+    private byte[] getBytes(ByteBuffer buffer) {
+        byte[] value = this.userName.getBytes();
+        buffer.putInt(value.length);
+        buffer.put(value);
+        buffer.putInt(this.userId);
+        buffer.flip();
+        value = null;
+        byte[] result = new byte[buffer.remaining()];
+        buffer.get(result);
+        return result;
+    }
+
+}
