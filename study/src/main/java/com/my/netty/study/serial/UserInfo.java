@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
  * @author shanghang
  * @title: User
  * @projectName nettyStudy
- * @description: 序列化demo
+ * @description: 序列化demo,msgPack pojo类必须实现Serializable和messagez注解
  * @date 2020.12.27-15:46
  */
 @Data
