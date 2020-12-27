@@ -1,5 +1,6 @@
 package com.my.netty.study.startnetty;
 
+import com.my.netty.study.serial.UserInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -19,12 +20,7 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        String body = (String) msg;
-        log.error("this is " + ++counter + "次:"+ body);
-        //返回客户端也需要增加分隔符
-        body +="$_";
-        ByteBuf echo = Unpooled.copiedBuffer(body.getBytes());
-        ctx.writeAndFlush(echo);
+        log.error(msg.toString());
     }
 
     @Override

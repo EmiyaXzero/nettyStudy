@@ -1,5 +1,6 @@
 package com.my.netty.study.startnetty;
 
+import com.my.netty.study.serial.UserInfo;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,14 +24,30 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        for (int i = 0 ;i< 10;i++){
-            ctx.writeAndFlush(Unpooled.copiedBuffer(ECHO_REQ.getBytes()));
+        UserInfo[] userInfos = UserInfo();
+        for (UserInfo userInfo : userInfos) {
+            ctx.write(userInfo);
         }
+        log.error("send msg");
+        ctx.flush();
+    }
+
+
+    private UserInfo[] UserInfo(){
+        UserInfo[] userInfos = new UserInfo[10];
+        for (int i =0 ;i<10;i++){
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId(i);
+            userInfo.setUserName("ABCDEFG---->"+i);
+            userInfos[i] = userInfo;
+        }
+        return userInfos;
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.error("this is "+ ++counter +"receiver "+msg);
+        ctx.write(msg);
     }
 
     @Override

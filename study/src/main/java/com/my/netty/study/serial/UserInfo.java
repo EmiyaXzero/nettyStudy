@@ -1,6 +1,7 @@
 package com.my.netty.study.serial;
 
 import lombok.Data;
+import org.msgpack.annotation.Message;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -13,6 +14,7 @@ import java.nio.ByteBuffer;
  * @date 2020.12.27-15:46
  */
 @Data
+@Message
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -52,4 +54,11 @@ public class UserInfo implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userName='" + userName + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

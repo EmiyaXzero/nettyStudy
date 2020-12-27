@@ -1,5 +1,7 @@
 package com.my.netty.study.startnetty;
 
+import com.my.netty.study.io.nettey.handler.codec.msgpack.MsgPackDecoder;
+import com.my.netty.study.io.nettey.handler.codec.msgpack.MsgPackEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -32,6 +34,10 @@ public class EchoServer {
             }
         }
         new EchoServer().bind(port);
+    }
+
+    EchoServer(){
+
     }
 
     private void bind(int port) {
@@ -68,8 +74,8 @@ public class EchoServer {
         @Override
         protected void initChannel(SocketChannel ch) throws Exception {
             //创建分割词
-            ch.pipeline().addLast(new FixedLengthFrameDecoder(20));
-            ch.pipeline().addLast(new StringDecoder());
+            ch.pipeline().addLast("msgpack decoder",new MsgPackDecoder());
+            ch.pipeline().addLast("msgpack encoder",new MsgPackEncoder());
             ch.pipeline().addLast(new EchoServerHandler());
         }
     }

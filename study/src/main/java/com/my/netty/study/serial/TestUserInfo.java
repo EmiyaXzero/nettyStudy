@@ -1,11 +1,15 @@
 package com.my.netty.study.serial;
 
 import lombok.extern.slf4j.Slf4j;
+import org.msgpack.MessagePack;
+import org.msgpack.template.Templates;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author shanghang
@@ -18,7 +22,8 @@ import java.nio.ByteBuffer;
 public class TestUserInfo {
     public static void main(String[] args) throws IOException {
         //doLength();
-        doCast();
+        //doCast();
+        doMsgPack();
     }
 
     /**
@@ -68,7 +73,19 @@ public class TestUserInfo {
         }
 
         log.error("The byte array cost time :" + (System.currentTimeMillis()-jdkSerStart)+": ms");
+    }
 
+    public static void doMsgPack() throws IOException {
+        List<String> src = new ArrayList<>();
+        src.add("msgPack");
+        src.add("kumofs");
+        src.add("viver");
+        MessagePack msgPack = new MessagePack();
+        byte[] raw = msgPack.write(src);
+        List<String> dst1 = msgPack.read(raw, Templates.tList(Templates.TString));
+        for (String s : dst1) {
+            log.error(s);
+        }
 
     }
 }
