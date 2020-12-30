@@ -12,6 +12,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.*;
@@ -85,7 +86,7 @@ public class FileTypeChange {
        return jsonObject;
     }
 
-    public static void main(String[] args) throws IOException, DocumentException {
+    public static void main(String[] args) throws IOException, DocumentException, JAXBException {
         Order order = new Order();
         order.setOrderNumber("111");
         Address address = new Address();
@@ -112,7 +113,7 @@ public class FileTypeChange {
         JSONObject temp =  JSONObject.parseObject(JSONObject.toJSONString(order));
         JSONObject object = new JSONObject();
         object.put(ss[ss.length-1],temp);
-        System.out.println(json2xml(object.toJSONString()));
+        System.out.println(XmlPojoUtil.pojoToString(order,Order.class));
         //System.out.println(xml2Json(json2xml(object.toJSONString())));
     }
 }
