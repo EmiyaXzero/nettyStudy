@@ -20,7 +20,7 @@ import java.util.*;
  * @author shanghang
  * @title: FileTypeChange
  * @projectName nettyStudy
- * @description: TODO
+ * @description: 好像这个工具类不行啊
  * @date 2020.12.30-20:10
  */
 public class FileTypeChange {
@@ -99,13 +99,20 @@ public class FileTypeChange {
         customer.setCustomerNumber("233");
         customer.setFirstName("李");
         customer.setLastName("林峰");
-        order.setCustomer(customer);
+        List<String> name = new ArrayList<>();
+        name.add("aaa");
+        name.add("bbb");
+        customer.setMiddleNames(name);
+        List<Customer> customers = new ArrayList<>();
+        customers.add(customer);
+        order.setCustomer(customers);
         order.setShipping(Shipping.INTERNATIONAL_MAIL);
         order.setBillTo(address);
         String[] ss = order.getClass().getName().split("\\.");
         JSONObject temp =  JSONObject.parseObject(JSONObject.toJSONString(order));
         JSONObject object = new JSONObject();
         object.put(ss[ss.length-1],temp);
-        System.out.println(xml2Json(json2xml(object.toJSONString())));
+        System.out.println(json2xml(object.toJSONString()));
+        //System.out.println(xml2Json(json2xml(object.toJSONString())));
     }
 }
