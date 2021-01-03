@@ -1,0 +1,47 @@
+package com.my.netty.study.mynetty;
+
+import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import org.jboss.marshalling.ByteOutput;
+
+import java.io.IOException;
+
+/**
+ * @Author: shanghang
+ * @Project:nettyStudy
+ * @description:TODO
+ * @Date: 2021.01.03 20:54
+ **/
+@Data
+public class ChannelBufferByteOutput implements ByteOutput {
+    private ByteBuf byteBuf;
+
+    ChannelBufferByteOutput(ByteBuf buf){
+        this.byteBuf = buf;
+    }
+
+    @Override
+    public void write(int i) throws IOException {
+        byteBuf.writeByte(i);
+    }
+
+    @Override
+    public void write(byte[] bytes) throws IOException {
+        byteBuf.writeBytes(bytes);
+    }
+
+    @Override
+    public void write(byte[] bytes, int i, int i1) throws IOException {
+        byteBuf.writeBytes(bytes,i,i);
+    }
+
+    @Override
+    public void close() throws IOException {
+
+    }
+
+    @Override
+    public void flush() throws IOException {
+
+    }
+}
