@@ -21,8 +21,8 @@ public class ChannelBufferByteOutput implements ByteOutput {
     }
 
     @Override
-    public void write(int i) throws IOException {
-        byteBuf.writeByte(i);
+    public void write(int b) throws IOException {
+        byteBuf.writeByte(b);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ChannelBufferByteOutput implements ByteOutput {
     }
 
     @Override
-    public void write(byte[] bytes, int i, int i1) throws IOException {
-        byteBuf.writeBytes(bytes,i,i);
+    public void write(byte[] bytes, int srcIndex, int length) throws IOException {
+        byteBuf.writeBytes(bytes,srcIndex,length);
     }
 
     @Override
@@ -44,4 +44,5 @@ public class ChannelBufferByteOutput implements ByteOutput {
     public void flush() throws IOException {
 
     }
+
 }

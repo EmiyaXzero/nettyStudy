@@ -55,7 +55,8 @@ public class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
             marshallingEncoder.encode(msg.getBody(),sendBuf);
         }else {
             sendBuf.writeInt(0);
-            sendBuf.setInt(4, sendBuf.readableBytes());
+            //这里半包处理有问题，需要增加-8
+            sendBuf.setInt(4, sendBuf.readableBytes()-8);
         }
 
     }

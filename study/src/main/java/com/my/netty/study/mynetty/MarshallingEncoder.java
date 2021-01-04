@@ -27,7 +27,7 @@ public class MarshallingEncoder {
             marshaller.start(output);
             marshaller.writeObject(msg);
             marshaller.finish();
-            out.setInt(lengthPos,out.writerIndex()-lengthPos-4);
+            out.setInt(lengthPos,out.writerIndex() - lengthPos - 4);
         }finally {
             marshaller.close();
         }

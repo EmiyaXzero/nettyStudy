@@ -38,25 +38,25 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
         header.setType(frame.readByte());
         header.setPriority(frame.readByte());
         //--取attach
-        int size = in.readInt();
+        int size = frame.readInt();
         if(size>0){
             Map<String,Object> attch = new HashMap<>(size);
             int keySize = 0;
             byte[] keyArray = null;
             String key = null;
             for (int i = 0 ;i<size ;i++){
-                keySize = in.readInt();
+                keySize = frame.readInt();
                 keyArray = new byte[keySize];
-                in.readBytes(keyArray);
+                frame.readBytes(keyArray);
                 key = new String(keyArray,"UTF-8");
-                attch.put(key,marshallingDecoder.decode(in));
+                attch.put(key,marshallingDecoder.decode(frame));
             }
             keyArray = null;
             key = null;
             header.setAttachment(attch);
         }
-        if(in.readableBytes()>4){
-            message.setBody(marshallingDecoder.decode(in));
+        if(frame.readableBytes()>4){
+            message.setBody(marshallingDecoder.decode(frame));
         }
         message.setHeader(header);
         return message;

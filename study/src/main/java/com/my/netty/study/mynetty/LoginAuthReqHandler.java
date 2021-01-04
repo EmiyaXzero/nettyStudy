@@ -35,6 +35,7 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         ctx.fireExceptionCaught(cause);
     }
 
@@ -43,7 +44,7 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
         Header header = new Header();
         header.setType(MessageType.LOGIN_REQ.getValue());
         message.setHeader(header);
-        message.setBody("123");
+//        message.setBody("123");
         return message;
     }
 

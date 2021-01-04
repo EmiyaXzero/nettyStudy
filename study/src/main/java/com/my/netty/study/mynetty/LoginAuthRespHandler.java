@@ -36,7 +36,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
             String nodeIndex = ctx.channel().remoteAddress().toString();
             NettyMessage loginResp = null;
             //重复登陆，拒绝
-            if(nodeIndex.contains(nodeIndex)){
+            if(nodeCheck.containsKey(nodeIndex)){
                 loginResp = buildResponse((byte)-1);
             }else {
                 InetSocketAddress address = (InetSocketAddress) ctx.channel().remoteAddress();
@@ -47,11 +47,12 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
                 }else {
                     loginResp = buildResponse((byte)-1);
                 }
-                log.error("The login response is " + loginResp.toString());
-                ctx.writeAndFlush(loginResp);
             }
+            log.error("The login response is " + loginResp.toString());
+            ctx.writeAndFlush(loginResp);
         }else {
-            ctx.writeAndFlush(msg);
+            //请求管道透传
+            ctx.fireChannelRead(msg);
         }
     }
 
@@ -59,6 +60,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         nodeCheck.remove(ctx.channel().remoteAddress().toString());
         ctx.close();
         ctx.fireExceptionCaught(cause);

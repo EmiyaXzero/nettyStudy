@@ -20,6 +20,6 @@ public enum MessageType {
     }
 
     public byte getValue() {
-        return value;
+        return this.value;
     }
 }
