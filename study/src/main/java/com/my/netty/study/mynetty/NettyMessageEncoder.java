@@ -1,14 +1,11 @@
 package com.my.netty.study.mynetty;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.MessageToMessageEncoder;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,9 +52,8 @@ public class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
             marshallingEncoder.encode(msg.getBody(),sendBuf);
         }else {
             sendBuf.writeInt(0);
-            //这里半包处理有问题，需要增加-8
-            sendBuf.setInt(4, sendBuf.readableBytes()-8);
         }
-
+        //标记结束位
+        sendBuf.setInt(4, sendBuf.readableBytes()-8);
     }
 }

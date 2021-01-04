@@ -25,6 +25,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
 
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+
         ByteBuf frame = (ByteBuf) super.decode(ctx, in);
         if(frame == null){
             //表示半包
